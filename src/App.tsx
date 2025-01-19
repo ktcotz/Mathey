@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import { AppRoutes } from './types/shared';
 import { lazy, Suspense } from 'react';
 import { FullPageSpinner } from './ui';
+import { SwitcherContextProvider } from './ui';
 
 const Home = lazy(async () => {
   const { Home } = await import('./pages/Home');
@@ -10,10 +11,12 @@ const Home = lazy(async () => {
 
 export const App = () => {
   return (
-    <Suspense fallback={<FullPageSpinner />}>
-      <Routes>
-        <Route path={AppRoutes.Home} element={<Home />} />
-      </Routes>
-    </Suspense>
+    <SwitcherContextProvider>
+      <Suspense fallback={<FullPageSpinner />}>
+        <Routes>
+          <Route path={AppRoutes.Home} element={<Home />} />
+        </Routes>
+      </Suspense>
+    </SwitcherContextProvider>
   );
 };
