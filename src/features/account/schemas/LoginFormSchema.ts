@@ -2,11 +2,11 @@ import z from 'zod';
 
 export const LoginFormSchema = z.object({
   email: z
-    .string()
+    .string({ message: 'Adres e-mail jest wymagany.' })
     .email('Niepoprawny adres e-mail, popraw go.')
     .nonempty('Adres e-mail jest wymagany.'),
   password: z
-    .string()
+    .string({ message: 'Hasło jest wymagane.' })
     .min(6, 'Hasło musi składać się minimum z 6 znaków.')
     .regex(/[A-Z]/, 'Hasło musi zawierać co najmniej jedną dużą literę.')
     .regex(

@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'motion/react';
-import { LoginForm, RegisterForm } from '../features/account';
+import { LoginForm, RegisterForm, ForgotForm } from '../features/account';
 import {
   BackgroundDecoration,
   Forms,
@@ -13,7 +13,7 @@ import { homeSwitcher } from '../ui/FormSwitcher/data/switcher';
 
 const forms: Record<Forms, ElementType> = {
   login: LoginForm,
-  forgot: LoginForm,
+  forgot: ForgotForm,
   register: RegisterForm,
 };
 

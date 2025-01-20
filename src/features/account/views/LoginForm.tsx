@@ -8,11 +8,15 @@ import {
   FormMessage,
   Input,
   Button,
+  useSwitcher,
+  PasswordInput,
 } from '../../../ui';
 import { LoginFormData, LoginFormSchema } from '../schemas/LoginFormSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 export const LoginForm = () => {
+  const { changeForm } = useSwitcher();
+
   const form = useForm<LoginFormData>({
     resolver: zodResolver(LoginFormSchema),
   });
@@ -48,13 +52,22 @@ export const LoginForm = () => {
             <FormItem>
               <FormLabel>Hasło</FormLabel>
               <FormControl>
-                <Input type="password" {...field} />
+                <PasswordInput {...field} type="password" />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit">Submit!</Button>
+        <Button type="submit">Zaloguj się!</Button>
+        <div className="text-center">
+          <Button
+            variant="link"
+            type="button"
+            onClick={() => changeForm('forgot')}
+          >
+            Zapomniałeś hasła?
+          </Button>
+        </div>
       </form>
     </Form>
   );
