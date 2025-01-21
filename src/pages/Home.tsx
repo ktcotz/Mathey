@@ -8,8 +8,9 @@ import {
   useSwitcher,
 } from '../ui';
 
-import { ElementType } from 'react';
+import { ElementType, useEffect } from 'react';
 import { homeSwitcher } from '../ui/FormSwitcher/data/switcher';
+import { supabase } from '../lib';
 
 const forms: Record<Forms, ElementType> = {
   login: LoginForm,
@@ -22,11 +23,15 @@ export const Home = () => {
 
   const Form = forms[currentForm];
 
+  useEffect(() => {
+    console.log(supabase);
+  }, []);
+
   return (
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-blue-100 to-indigo-200 p-4">
       <BackgroundDecoration />
-      <div className="w-full max-w-md">
-        <div className="flex flex-col items-center gap-6">
+      <div className="z-10 w-full max-w-md">
+        <div className="flex flex-col items-center gap-2">
           <Logo />
           <h1 className="mb-6 text-center text-3xl font-bold">
             Korepetycje z{' '}

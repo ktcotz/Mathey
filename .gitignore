@@ -27,3 +27,5 @@ dist-ssr
 /blob-report/
 /playwright/.cache/
 todo.md
+.env.development
+.env.testing

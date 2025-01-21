@@ -13,16 +13,29 @@ import {
 } from '../../../ui';
 import { LoginFormData, LoginFormSchema } from '../schemas/LoginFormSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useLogin } from '../mutations/useLogin';
 
 export const LoginForm = () => {
   const { changeForm } = useSwitcher();
+  const { login } = useLogin();
 
   const form = useForm<LoginFormData>({
     resolver: zodResolver(LoginFormSchema),
+    defaultValues: {
+      email: '',
+      password: '',
+    },
   });
 
-  const submitHandler = () => {
-    console.log('submit');
+  const submitHandler = ({ email, password }: LoginFormData) => {
+    login(
+      { email, password },
+      {
+        onSuccess: (data) => {
+          console.log(data);
+        },
+      },
+    );
   };
 
   return (
