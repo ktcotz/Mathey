@@ -11,7 +11,7 @@
     "preview": "vite preview",
     "prepare": "husky install",
     "test": "vitest",
-    "test:e2e": "cross-env NODE_ENV=testing playwright test --ui"
+    "test:e2e": "npx supabase start && playwright test --ui"
   },
   "dependencies": {
     "@radix-ui/react-label": "^2.1.1",
@@ -20,7 +20,6 @@
     "@tanstack/react-query": "^5.64.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "cross-env": "^7.0.3",
     "lucide-react": "^0.473.0",
     "motion": "^11.18.1",
     "react": "^18.3.1",
