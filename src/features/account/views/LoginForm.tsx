@@ -10,14 +10,19 @@ import {
   Button,
   useSwitcher,
   PasswordInput,
+  InlineSpinner,
 } from '../../../ui';
 import { LoginFormData, LoginFormSchema } from '../schemas/LoginFormSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useLogin } from '../mutations/useLogin';
+import { CustomError } from '../../../utils/CustomError';
+import { useNavigate } from 'react-router';
+import { AppRoutes } from '../../../types/shared';
 
 export const LoginForm = () => {
   const { changeForm } = useSwitcher();
-  const { login } = useLogin();
+  const { login, isLogin, loginError } = useLogin();
+  const navigate = useNavigate();
 
   const form = useForm<LoginFormData>({
     resolver: zodResolver(LoginFormSchema),
@@ -31,8 +36,9 @@ export const LoginForm = () => {
     login(
       { email, password },
       {
-        onSuccess: (data) => {
-          console.log(data);
+        onSuccess: () => {
+          navigate(AppRoutes.Dashboard);
+          form.reset();
         },
       },
     );
@@ -71,7 +77,17 @@ export const LoginForm = () => {
             </FormItem>
           )}
         />
-        <Button type="submit">Zaloguj się!</Button>
+        <Button type="submit" disabled={!!isLogin}>
+          {isLogin ? <InlineSpinner /> : 'Zaloguj się!'}
+        </Button>
+        {loginError instanceof CustomError && (
+          <p
+            role="alert"
+            className="text-center text-[0.8rem] font-medium text-destructive"
+          >
+            {loginError.generateMessage()}
+          </p>
+        )}
         <div className="text-center">
           <Button
             variant="link"

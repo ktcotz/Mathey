@@ -29,3 +29,4 @@ dist-ssr
 todo.md
 .env.development
 .env.testing
+.env.staging

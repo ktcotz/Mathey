@@ -8,3 +8,4 @@ export * from './Input';
 export * from './PasswordInput';
 export * from './BackgroundDecoration';
 export * from './FormSwitcher';
+export * from './InlineSpinner';
