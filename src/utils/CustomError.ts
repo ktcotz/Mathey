@@ -4,12 +4,17 @@ type CustomErrorConfig = {
 };
 
 export class CustomError extends Error {
-  private errors: Record<number, string> = {
-    400: 'Nie ma takiego użytkownika, popraw dane.',
+  private errors: Record<string | number, string> = {
+    'Invalid login credentials':
+      'Nie ma takiego użytkownika, albo wprowadziłeś błędne dane.',
+    'User already registered':
+      'Użytkownik z podanym emailem jest już w naszej bazie.',
   };
 
   constructor(protected config: CustomErrorConfig) {
     super(config.message);
+
+    console.log(this.config);
 
     this.name = 'CustomError';
 
@@ -19,10 +24,10 @@ export class CustomError extends Error {
   }
 
   generateMessage(): string {
-    if (!this.config.code || !this.errors[this.config.code]) {
+    if (!this.config.message || !this.errors[this.config.message]) {
       return 'Niespodziewany error, spróbuj ponownie za chwilę.';
     }
 
-    return this.errors[this.config.code];
+    return this.errors[this.config.message];
   }
 }

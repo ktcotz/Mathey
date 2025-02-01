@@ -22,5 +22,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src", "e2e"]
+  "include": ["src", "e2e", "supabase/functions/send-email/RegisterEmail.tsx"]
 }
