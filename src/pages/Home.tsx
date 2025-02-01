@@ -8,9 +8,8 @@ import {
   useSwitcher,
 } from '../ui';
 
-import { ElementType, useEffect } from 'react';
+import { ElementType } from 'react';
 import { homeSwitcher } from '../ui/FormSwitcher/data/switcher';
-import { supabase } from '../lib';
 
 const forms: Record<Forms, ElementType> = {
   login: LoginForm,
@@ -22,10 +21,6 @@ export const Home = () => {
   const { currentForm } = useSwitcher();
 
   const Form = forms[currentForm];
-
-  useEffect(() => {
-    console.log(supabase);
-  }, []);
 
   return (
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-blue-100 to-indigo-200 p-4">
@@ -42,7 +37,7 @@ export const Home = () => {
         </div>
         <div className="rounded-lg bg-white p-8 shadow-xl">
           <FormSwitcher data={homeSwitcher} />
-          <div className="h-[300px]">
+          <div className="h-[375px]">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentForm}
