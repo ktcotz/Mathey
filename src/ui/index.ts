@@ -16,4 +16,5 @@ export * from './Scroll-area';
 export * from './Toast';
 export * from './Toaster';
 export * from './PhoneInput';
+export * from './ProtectedRoute';
 export * from './hooks/use-toast';

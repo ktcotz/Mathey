@@ -1,6 +1,7 @@
 import { supabase } from '../../../lib';
 import { CustomError } from '../../../utils/CustomError';
 import { API_URL } from '../../mail/services/api';
+import { UserDetailsID } from '../queries/useUserDetails';
 import { LoginFormData } from '../schemas/LoginFormSchema';
 import { RegisterFormData } from '../schemas/RegisterFormSchema';
 import { UserSchema } from '../schemas/UserSchema';
@@ -107,4 +108,22 @@ export const changePassword = async ({ password }: { password: string }) => {
   }
 
   return data;
+};
+
+export const getUserDetails = async ({ userID }: UserDetailsID) => {
+  const { data: user, error } = await supabase
+    .from('users')
+    .select('*')
+    .eq('user_id', userID)
+    .single();
+
+  if (error) {
+    throw new CustomError({
+      message: error.message,
+    });
+  }
+
+  const parsed = UserSchema.parse(user);
+
+  return parsed;
 };
