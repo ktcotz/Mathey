@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-test('Should correctly register user', async ({ page }) => {
+test('Should correctly login user', async ({ page }) => {
   await page.goto('http://localhost:3000');
 
   const emailInput = page.getByLabel(/Email/);
