@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import { AppRoutes } from './types/shared';
 import { lazy, Suspense } from 'react';
-import { FullPageSpinner } from './ui';
+import { FullPageSpinner, Toaster } from './ui';
 import { SwitcherContextProvider } from './ui';
 import { Dashboard } from './pages/Dashboard';
 
@@ -18,6 +18,7 @@ export const App = () => {
           <Route path={AppRoutes.Home} element={<Home />} />
           <Route path={AppRoutes.Dashboard} element={<Dashboard />} />
         </Routes>
+        <Toaster />
       </Suspense>
     </SwitcherContextProvider>
   );

@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useState } from 'react';
 
-const forms = ['login', 'register', 'forgot'] as const;
+const forms = ['login', 'register', 'forgot', 'change'] as const;
 export type Forms = (typeof forms)[number];
 
 type SwitcherContextData = {

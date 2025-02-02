@@ -1,5 +1,6 @@
 import { supabase } from '../../../lib';
 import { CustomError } from '../../../utils/CustomError';
+import { API_URL } from '../../mail/services/api';
 import { LoginFormData } from '../schemas/LoginFormSchema';
 import { RegisterFormData } from '../schemas/RegisterFormSchema';
 import { UserSchema } from '../schemas/UserSchema';
@@ -58,4 +59,52 @@ export const registerUser = async ({
   const parsedUser = UserSchema.parse(tableUser);
 
   return parsedUser;
+};
+
+export const forgotPassword = async ({ email }: { email: string }) => {
+  try {
+    await fetch(`${API_URL}/reset`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email,
+      }),
+    });
+  } catch (err) {
+    if (err instanceof Error) {
+      return err.message;
+    }
+  }
+};
+
+export const getUser = async () => {
+  const { data, error } = await supabase.auth.getSession();
+
+  if (error) {
+    throw new CustomError({
+      message: error.message,
+      code: error.status,
+    });
+  }
+
+  const user = data.session?.user;
+
+  return user ?? null;
+};
+
+export const changePassword = async ({ password }: { password: string }) => {
+  const { data, error } = await supabase.auth.updateUser({
+    password,
+  });
+
+  if (error) {
+    throw new CustomError({
+      message: error.message,
+      code: error.status,
+    });
+  }
+
+  return data;
 };

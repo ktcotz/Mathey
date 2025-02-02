@@ -1,5 +1,10 @@
 import { AnimatePresence, motion } from 'motion/react';
-import { LoginForm, RegisterForm, ForgotForm } from '../features/account';
+import {
+  LoginForm,
+  RegisterForm,
+  ForgotForm,
+  ChangePasswordForm,
+} from '../features/account';
 import {
   BackgroundDecoration,
   Forms,
@@ -10,17 +15,20 @@ import {
 
 import { ElementType } from 'react';
 import { homeSwitcher } from '../ui/FormSwitcher/data/switcher';
+import { useSearchParams } from 'react-router';
 
 const forms: Record<Forms, ElementType> = {
   login: LoginForm,
   forgot: ForgotForm,
   register: RegisterForm,
+  change: ChangePasswordForm,
 };
 
 export const Home = () => {
+  const [params] = useSearchParams();
   const { currentForm } = useSwitcher();
-
-  const Form = forms[currentForm];
+  const type = params.get('type');
+  const Form = type === 'change' ? forms['change'] : forms[currentForm];
 
   return (
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-blue-100 to-indigo-200 p-4">
