@@ -22,8 +22,8 @@ export const MoreDetailsForm = () => {
   const Form = currentForm[step];
 
   return (
-    <Dialog defaultOpen={true}>
-      <DialogContent>
+    <Dialog defaultOpen={true} open={true}>
+      <DialogContent className="[&>button]:hidden">
         <DialogHeader>
           <Stepper steps={2} current={step} />
           <DialogTitle>Uzupełnij swój profil</DialogTitle>
