@@ -15,6 +15,8 @@ export * from './Popover';
 export * from './Scroll-area';
 export * from './Toast';
 export * from './Toaster';
+export * from './Card';
 export * from './PhoneInput';
 export * from './ProtectedRoute';
 export * from './hooks/use-toast';
+export * from './Stepper';
