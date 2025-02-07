@@ -20,3 +20,6 @@ export * from './PhoneInput';
 export * from './ProtectedRoute';
 export * from './hooks/use-toast';
 export * from './Stepper';
+export * from './Input-otp';
+export * from './Checkbox';
+export * from './CustomMap';
