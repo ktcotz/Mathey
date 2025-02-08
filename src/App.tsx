@@ -5,6 +5,7 @@ import { FullPageSpinner, ProtectedRoute, Toaster } from './ui';
 import { SwitcherContextProvider } from './ui';
 import { Dashboard } from './pages/Dashboard';
 import { AuthContextProvider } from './features/account/context/AuthContext';
+import { NotFound } from './pages/NotFound';
 
 const Home = lazy(async () => {
   const { Home } = await import('./pages/Home');
@@ -27,6 +28,7 @@ export const App = () => {
               </AuthContextProvider>
             }
           />
+          <Route path={AppRoutes.NotFound} element={<NotFound />} />
         </Routes>
         <Toaster />
       </Suspense>
