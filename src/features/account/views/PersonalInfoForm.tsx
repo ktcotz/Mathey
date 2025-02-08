@@ -15,22 +15,30 @@ import {
   PersonalInfoFormData,
   PersonalInfoFormSchema,
 } from '../schemas/PersonalInfoFormSchema';
+import { DetailsFormData } from './MoreDetailsForm';
 
-export const PersonalInfoForm = () => {
+type PersonalInfoFormProps = {
+  data: DetailsFormData;
+  setupData: (dataToSetup: Partial<DetailsFormData>) => void;
+};
+
+export const PersonalInfoForm = ({
+  data: { firstName, lastName, purpose },
+  setupData,
+}: PersonalInfoFormProps) => {
   const { nextStep } = useStepper();
 
   const form = useForm<PersonalInfoFormData>({
     resolver: zodResolver(PersonalInfoFormSchema),
     defaultValues: {
-      firstName: '',
-      lastName: '',
-      purpose: '',
+      firstName,
+      lastName,
+      purpose,
     },
   });
 
   const submitHandler = (data: PersonalInfoFormData) => {
-    console.log(data);
-
+    setupData(data);
     nextStep();
   };
 

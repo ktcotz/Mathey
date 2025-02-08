@@ -9,15 +9,36 @@ import {
 
 import { PersonalInfoForm } from './PersonalInfoForm';
 import { AddressInfoForm } from './AddressInfoForm';
-import { ElementType } from 'react';
+import { ElementType, useState } from 'react';
 
 const currentForm: Record<number, ElementType> = {
   1: PersonalInfoForm,
   2: AddressInfoForm,
 };
 
+export type DetailsFormData = {
+  firstName: string;
+  lastName: string;
+  purpose: string;
+  postalCode: string;
+};
+
 export const MoreDetailsForm = () => {
   const { step } = useStepper();
+
+  const [data, setData] = useState<DetailsFormData>({
+    firstName: '',
+    lastName: '',
+    purpose: '',
+    postalCode: '',
+  });
+
+  const setupData = (dataToSetup: Partial<DetailsFormData>) => {
+    setData((prevData) => ({
+      ...prevData,
+      ...dataToSetup,
+    }));
+  };
 
   const Form = currentForm[step];
 
@@ -33,7 +54,7 @@ export const MoreDetailsForm = () => {
             odpowiedniego korepetytora.
           </DialogDescription>
         </DialogHeader>
-        {<Form />}
+        {<Form data={data} setupData={setupData} />}
       </DialogContent>
     </Dialog>
   );

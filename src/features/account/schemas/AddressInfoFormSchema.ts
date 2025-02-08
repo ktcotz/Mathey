@@ -12,7 +12,7 @@ export const AddressInfoFormSchema = z.object({
     .max(100, 'Miejscowość nie może mieć więcej niż 100 znaków'),
 
   houseNumber: z
-    .string()
+    .string({ required_error: 'Numer domu nie może być pusty' })
     .nonempty('Numer domu nie może być pusty')
     .max(10, 'Numer domu nie może mieć więcej niż 10 znaków'),
 

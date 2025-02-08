@@ -15,6 +15,7 @@ import {
   Label,
   Checkbox,
   CustomMap,
+  useStepper,
 } from '../../../ui';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
@@ -22,13 +23,22 @@ import {
   AddressInfoFormSchema,
 } from '../schemas/AddressInfoFormSchema';
 import { Fragment } from 'react/jsx-runtime';
+import { DetailsFormData } from './MoreDetailsForm';
 
-export const AddressInfoForm = () => {
+type AddressInfoFormProps = {
+  data: DetailsFormData;
+};
+
+export const AddressInfoForm = ({
+  data: { postalCode },
+}: AddressInfoFormProps) => {
+  const { previousStep } = useStepper();
+
   const form = useForm<AddressInfoFormData>({
     resolver: zodResolver(AddressInfoFormSchema),
     defaultValues: {
       city: '',
-      postalCode: '',
+      postalCode,
       street: '',
       geolocation: false,
     },
@@ -65,8 +75,11 @@ export const AddressInfoForm = () => {
         />
 
         {isMapVisible && (
-          <div className="aspect-video w-full">
-            <CustomMap />
+          <div className="flex flex-col gap-2">
+            <div className="aspect-video w-full">
+              <CustomMap />
+            </div>
+            <Button type="button">Pobierz moją lokalizację</Button>
           </div>
         )}
 
@@ -141,7 +154,12 @@ export const AddressInfoForm = () => {
           </Fragment>
         )}
 
-        <Button type="submit">Przejdź dalej</Button>
+        <div className="flex items-center justify-between">
+          <Button type="button" onClick={previousStep}>
+            Wstecz
+          </Button>
+          <Button type="submit">Zaktualizuj profil</Button>
+        </div>
       </form>
     </Form>
   );
