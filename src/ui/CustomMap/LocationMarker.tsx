@@ -3,6 +3,8 @@ import { MapPosition } from './CustomMap';
 import { Marker, Popup, useMapEvents } from 'react-leaflet';
 import { Address } from './schemas/AddressSchema';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Icon } from 'leaflet';
+import markerIconPng from 'leaflet/dist/images/marker-icon.png';
 
 type LocationMarkerProps = {
   position?: MapPosition;
@@ -51,7 +53,16 @@ export const LocationMarker = ({
         exit={{ scale: 0, opacity: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <Marker position={coordinates}>
+        <Marker
+          position={coordinates}
+          icon={
+            new Icon({
+              iconUrl: markerIconPng,
+              iconSize: [25, 41],
+              iconAnchor: [12, 41],
+            })
+          }
+        >
           <Popup position={position}>
             <motion.div
               initial={{ opacity: 0, y: -10 }}
