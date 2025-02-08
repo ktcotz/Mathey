@@ -16,6 +16,7 @@ import {
   Checkbox,
   CustomMap,
   useStepper,
+  useLocation,
 } from '../../../ui';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
@@ -23,22 +24,37 @@ import {
   AddressInfoFormSchema,
 } from '../schemas/AddressInfoFormSchema';
 import { Fragment } from 'react/jsx-runtime';
+
+import { Address } from '../../../ui/CustomMap/schemas/AddressSchema';
 import { DetailsFormData } from './MoreDetailsForm';
 
 type AddressInfoFormProps = {
   data: DetailsFormData;
 };
 
-export const AddressInfoForm = ({
-  data: { postalCode },
-}: AddressInfoFormProps) => {
+export const AddressInfoForm = ({ data }: AddressInfoFormProps) => {
   const { previousStep } = useStepper();
+  const { getLocation, isLoading, position } = useLocation();
+
+  const getMapData = ({
+    city,
+    house_number,
+    road,
+    village,
+    postcode,
+  }: Address) => {
+    form.setValue('city', city || village);
+    form.setValue('houseNumber', house_number);
+    form.setValue('street', road);
+    form.setValue('postalCode', postcode.replace('-', ''));
+  };
 
   const form = useForm<AddressInfoFormData>({
     resolver: zodResolver(AddressInfoFormSchema),
     defaultValues: {
       city: '',
-      postalCode,
+      postalCode: '',
+      houseNumber: '',
       street: '',
       geolocation: false,
     },
@@ -46,8 +62,21 @@ export const AddressInfoForm = ({
 
   const isMapVisible = form.watch('geolocation');
 
-  const submitHandler = (data: AddressInfoFormData) => {
-    console.log(data);
+  const submitHandler = ({
+    city,
+    houseNumber,
+    postalCode,
+    street,
+  }: AddressInfoFormData) => {
+    const fullData = {
+      city,
+      houseNumber,
+      street,
+      postalCode,
+      ...data,
+    };
+
+    console.log(fullData);
   };
 
   return (
@@ -77,9 +106,17 @@ export const AddressInfoForm = ({
         {isMapVisible && (
           <div className="flex flex-col gap-2">
             <div className="aspect-video w-full">
-              <CustomMap />
+              <CustomMap position={position} getMapData={getMapData} />
             </div>
-            <Button type="button">Pobierz moją lokalizację</Button>
+            {!position && (
+              <Button
+                type="button"
+                disabled={!!isLoading}
+                onClick={() => getLocation()}
+              >
+                Pobierz moją lokalizację
+              </Button>
+            )}
           </div>
         )}
 

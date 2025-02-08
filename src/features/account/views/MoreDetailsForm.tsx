@@ -20,7 +20,6 @@ export type DetailsFormData = {
   firstName: string;
   lastName: string;
   purpose: string;
-  postalCode: string;
 };
 
 export const MoreDetailsForm = () => {
@@ -30,7 +29,6 @@ export const MoreDetailsForm = () => {
     firstName: '',
     lastName: '',
     purpose: '',
-    postalCode: '',
   });
 
   const setupData = (dataToSetup: Partial<DetailsFormData>) => {
