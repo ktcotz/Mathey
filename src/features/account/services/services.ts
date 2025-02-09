@@ -2,9 +2,11 @@ import { supabase } from '../../../lib';
 import { CustomError } from '../../../utils/CustomError';
 import { API_URL } from '../../mail/services/api';
 import { UserDetailsID } from '../queries/useUserDetails';
+import { AddressInfoFormData } from '../schemas/AddressInfoFormSchema';
 import { LoginFormData } from '../schemas/LoginFormSchema';
 import { RegisterFormData } from '../schemas/RegisterFormSchema';
 import { UserSchema } from '../schemas/UserSchema';
+import { DetailsFormData } from '../views/MoreDetailsForm';
 
 export const userLogin = async ({ email, password }: LoginFormData) => {
   const { data, error } = await supabase.auth.signInWithPassword({
@@ -126,4 +128,38 @@ export const getUserDetails = async ({ userID }: UserDetailsID) => {
   const parsed = UserSchema.parse(user);
 
   return parsed;
+};
+
+export const updateUserProfile = async ({
+  city,
+  street,
+  houseNumber,
+  firstName,
+  lastName,
+  postalCode,
+  purpose,
+  userID,
+}: DetailsFormData & AddressInfoFormData & UserDetailsID) => {
+  const data = {
+    city,
+    street,
+    house_number: houseNumber,
+    firstName,
+    lastName,
+    postalCode,
+    purpose,
+  };
+
+  const { error } = await supabase
+    .from('users')
+    .update({ ...data, detailsComplete: true })
+    .eq('user_id', userID)
+    .select()
+    .single();
+
+  if (error) {
+    throw new CustomError({
+      message: error.message,
+    });
+  }
 };

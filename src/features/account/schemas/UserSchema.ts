@@ -7,6 +7,11 @@ export const UserSchema = z.object({
   avatar_url: z.string().nullable(),
   phone: z.string(),
   detailsComplete: z.boolean(),
+  city: z.string().nullable(),
+  street: z.string().nullable(),
+  house_number: z.string().nullable(),
+  firstName: z.string().nullable(),
+  lastName: z.string().nullable(),
 });
 
 export type User = z.infer<typeof UserSchema>;

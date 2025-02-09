@@ -17,6 +17,7 @@ import {
   CustomMap,
   useStepper,
   useLocation,
+  InlineSpinner,
 } from '../../../ui';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
@@ -27,14 +28,20 @@ import { Fragment } from 'react/jsx-runtime';
 
 import { Address } from '../../../ui/CustomMap/schemas/AddressSchema';
 import { DetailsFormData } from './MoreDetailsForm';
+import { useUpdateProfile } from '../mutations/useUpdateProfile';
+import { useAuth } from '../context/useAuth';
 
 type AddressInfoFormProps = {
   data: DetailsFormData;
 };
 
 export const AddressInfoForm = ({ data }: AddressInfoFormProps) => {
+  const { user } = useAuth();
   const { previousStep } = useStepper();
   const { getLocation, isLoading, position } = useLocation();
+  const { isUpdating, updateProfile } = useUpdateProfile({
+    userID: user!.user_id,
+  });
 
   const getMapData = ({
     city,
@@ -76,7 +83,7 @@ export const AddressInfoForm = ({ data }: AddressInfoFormProps) => {
       ...data,
     };
 
-    console.log(fullData);
+    updateProfile({ ...fullData, userID: user!.user_id });
   };
 
   return (
@@ -195,7 +202,9 @@ export const AddressInfoForm = ({ data }: AddressInfoFormProps) => {
           <Button type="button" onClick={previousStep}>
             Wstecz
           </Button>
-          <Button type="submit">Zaktualizuj profil</Button>
+          <Button type="submit" disabled={!!isUpdating}>
+            {isUpdating ? <InlineSpinner /> : 'Zaktualizuj profil'}
+          </Button>
         </div>
       </form>
     </Form>
