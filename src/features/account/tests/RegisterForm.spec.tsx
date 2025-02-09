@@ -7,11 +7,11 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { MemoryRouter } from 'react-router';
 
 const renderFormWithProviders = async () => {
-  const { LoginForm } = await import('./../views/LoginForm');
+  const { RegisterForm } = await import('./../views/RegisterForm');
 
   const client = new QueryClient();
 
-  return render(<LoginForm />, {
+  return render(<RegisterForm />, {
     wrapper: ({ children }) => {
       return (
         <MemoryRouter initialEntries={['/']}>
@@ -23,7 +23,7 @@ const renderFormWithProviders = async () => {
     },
   });
 };
-describe('Login Form Component tests coverage', () => {
+describe('Register Form Component tests coverage', () => {
   test('Should correctly render layout and inputs', async () => {
     await renderFormWithProviders();
 
@@ -31,12 +31,16 @@ describe('Login Form Component tests coverage', () => {
     const passwordInput = screen.getByLabelText(/Hasło/i, {
       selector: 'input',
     });
+    const phoneInput = screen.getByLabelText(/Numer telefonu/i);
 
-    const loginButton = screen.getByRole('button', { name: /Zaloguj się/i });
+    const registerButton = screen.getByRole('button', {
+      name: /Zarejestruj się/i,
+    });
 
     expect(emailInput).toHaveValue('');
     expect(passwordInput).toHaveValue('');
-    expect(loginButton).toBeDefined();
+    expect(phoneInput).toHaveValue('');
+    expect(registerButton).toBeDefined();
   });
 
   test('Should correctly render errors when invalid data.', async () => {
@@ -48,23 +52,28 @@ describe('Login Form Component tests coverage', () => {
     const passwordInput = screen.getByLabelText(/Hasło/i, {
       selector: 'input',
     });
+    const phoneInput = screen.getByLabelText(/Numer telefonu/i);
 
-    const loginButton = screen.getByRole('button', { name: /Zaloguj się/i });
+    const registerButton = screen.getByRole('button', {
+      name: /Zarejestruj się/i,
+    });
 
     expect(emailInput).toHaveValue('');
     expect(passwordInput).toHaveValue('');
-    expect(loginButton).toBeDefined();
+    expect(registerButton).toBeDefined();
 
     await userEventSetup.type(emailInput, 'abd.pl');
     await userEventSetup.type(passwordInput, 'abd');
-    await userEventSetup.click(loginButton);
+    await userEventSetup.type(phoneInput, '12345');
+
+    await userEventSetup.click(registerButton);
 
     const errors = screen.getAllByText((_, element) => {
       if (!element) return false;
       return element?.id.includes('form-item-message');
     });
 
-    expect(errors).toHaveLength(2);
+    expect(errors).toHaveLength(3);
   });
 
   test('Should correctly submit data when valid data.', async () => {
@@ -76,16 +85,21 @@ describe('Login Form Component tests coverage', () => {
     const passwordInput = screen.getByLabelText(/Hasło/i, {
       selector: 'input',
     });
+    const phoneInput = screen.getByLabelText(/Numer telefonu/i);
 
-    const loginButton = screen.getByRole('button', { name: /Zaloguj się/i });
+    const registerButton = screen.getByRole('button', {
+      name: /Zarejestruj się/i,
+    });
 
     expect(emailInput).toHaveValue('');
     expect(passwordInput).toHaveValue('');
-    expect(loginButton).toBeDefined();
+    expect(registerButton).toBeDefined();
 
     await userEventSetup.type(emailInput, 'abd@wp.pl');
-    await userEventSetup.type(passwordInput, 'Małpeczka123!');
-    await userEventSetup.click(loginButton);
+    await userEventSetup.type(passwordInput, 'abdasd!A');
+    await userEventSetup.type(phoneInput, '123456789');
+
+    await userEventSetup.click(registerButton);
 
     const errors = screen.queryAllByText((_, element) => {
       if (!element) return false;

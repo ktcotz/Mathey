@@ -102,9 +102,19 @@ export const AddressInfoForm = ({ data }: AddressInfoFormProps) => {
                   id="geolocation"
                   checked={field.value}
                   onCheckedChange={field.onChange}
+                  aria-describedby="geolocation-description"
                 />
               </FormControl>
               <Label htmlFor="geolocation">Użyj geolokalizacji</Label>
+              <span
+                id="geolocation-description"
+                className="sr-only"
+                aria-live="polite"
+              >
+                {field.value
+                  ? 'Geolokalizacja włączona. Mapa zostanie użyta do wypełnienia danych adresowych.'
+                  : 'Geolokalizacja wyłączona. Wprowadź adres ręcznie.'}
+              </span>
               <FormMessage />
             </FormItem>
           )}

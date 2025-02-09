@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitest/config';
+import { loadEnv } from 'vite';
 
 export default defineConfig({
   test: {
@@ -6,5 +7,6 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: './src/tests/setupTests.ts',
     include: ['src/**/*.{test,spec}.{ts,tsx}'],
+    env: loadEnv('', './.env.development'),
   },
 });
