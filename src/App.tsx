@@ -3,9 +3,9 @@ import { AppRoutes } from './types/shared';
 import { lazy, Suspense } from 'react';
 import { FullPageSpinner, ProtectedRoute, Toaster } from './ui';
 import { SwitcherContextProvider } from './ui';
-import { Dashboard } from './pages/Dashboard';
 import { AuthContextProvider } from './features/account/context/AuthContext';
 import { NotFound } from './pages/NotFound';
+import { DashboardManager } from './ui/DashboardManager';
 
 const Home = lazy(async () => {
   const { Home } = await import('./pages/Home');
@@ -23,7 +23,7 @@ export const App = () => {
             element={
               <AuthContextProvider>
                 <ProtectedRoute>
-                  <Dashboard />
+                  <DashboardManager />
                 </ProtectedRoute>
               </AuthContextProvider>
             }

@@ -5,7 +5,7 @@ export const UserSchema = z.object({
   type: z.enum(['public', 'teacher', 'admin']),
   email: z.string(),
   avatar_url: z.string().nullable(),
-  phone: z.string(),
+  phone: z.string().nullable(),
   detailsComplete: z.boolean(),
   city: z.string().nullable(),
   street: z.string().nullable(),

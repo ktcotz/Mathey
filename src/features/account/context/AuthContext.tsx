@@ -17,8 +17,10 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   const [userID, setUserID] = useState<string | null>(null);
   const { user } = useUserDetails({ userID });
 
-  const setupUser = (userID: string) => {
-    setUserID(userID);
+  const setupUser = (newUserID: string) => {
+    if (newUserID !== userID) {
+      setUserID(newUserID);
+    }
   };
 
   return (
