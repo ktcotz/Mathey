@@ -53,18 +53,18 @@ export const UserMenu = () => {
           onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
         >
           {theme === 'dark' ? (
-            <Sun className="mr-2 h-4 w-4" />
+            <Sun className="mr-2 h-4 w-4" aria-label="Zmień na tryb jasny" />
           ) : (
-            <Moon className="mr-2 h-4 w-4" />
+            <Moon className="mr-2 h-4 w-4" aria-label="Zmień na tryb ciemny" />
           )}
           <span>{theme === 'dark' ? 'Tryb jasny' : 'Tryb ciemny'}</span>
         </DropdownMenuItem>
         <DropdownMenuItem>
-          <Settings className="mr-2 h-4 w-4" />
+          <Settings className="mr-2 h-4 w-4" aria-label="Ustawienia konta" />
           <span>Ustawienia</span>
         </DropdownMenuItem>
         <DropdownMenuItem>
-          <LogOut className="mr-2 h-4 w-4" />
+          <LogOut className="mr-2 h-4 w-4" aria-label="Wyloguj się" />
           <span>Wyloguj się</span>
         </DropdownMenuItem>
       </DropdownMenuContent>

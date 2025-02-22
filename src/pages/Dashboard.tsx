@@ -5,14 +5,16 @@ import { BackgroundDecoration, StepperContextProvider } from '../ui';
 import { useDocumentTitle } from 'usehooks-ts';
 import { AppRoutes } from '../types/shared';
 import { UserMenu } from '../features/student/UserMenu';
+import { useTheme } from '../store/theme/useTheme';
 
 export const Dashboard = () => {
   const { user } = useAuth();
+  const { theme } = useTheme();
 
   useDocumentTitle(`Dashboard | Mathey - Twój korepetytor matematyki online`);
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-blue-100 to-indigo-200 p-4">
+    <div className="relative min-h-screen bg-gradient-to-br from-blue-100 to-indigo-200 p-4 dark:from-gray-900 dark:to-indigo-950">
       <BackgroundDecoration />
 
       {!user ||
@@ -28,7 +30,12 @@ export const Dashboard = () => {
             to={AppRoutes.Dashboard}
             className="flex items-center justify-between"
           >
-            <img src="./images/logo.svg" alt="Mathey" width={125} height={95} />
+            <img
+              src={`./images/${theme === 'dark' ? 'logo-white' : 'logo'}.svg`}
+              alt="Mathey"
+              width={125}
+              height={95}
+            />
 
             <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-3xl font-bold text-transparent">
               Korepetycje

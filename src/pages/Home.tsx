@@ -31,19 +31,19 @@ export const Home = () => {
   const Form = type === 'change' ? forms['change'] : forms[currentForm];
 
   return (
-    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-blue-100 to-indigo-200 p-4">
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-blue-100 to-indigo-200 p-4 dark:from-gray-900 dark:to-indigo-950">
       <BackgroundDecoration />
       <div className="z-10 w-full max-w-md">
         <div className="flex flex-col items-center gap-2">
           <Logo />
-          <h1 className="mb-6 text-center text-3xl font-bold">
+          <h1 className="mb-6 text-center text-3xl font-bold dark:text-white">
             Korepetycje z{' '}
             <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
               Matematyki
             </span>
           </h1>
         </div>
-        <div className="rounded-lg bg-white p-8 shadow-xl">
+        <div className="rounded-lg bg-white p-8 shadow-xl dark:bg-gray-800">
           <FormSwitcher data={homeSwitcher} />
           <div className="h-[375px]">
             <AnimatePresence mode="wait">

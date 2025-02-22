@@ -55,7 +55,7 @@ export const LoginForm = () => {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel className="dark:text-gray-300">Email</FormLabel>
               <FormControl>
                 <Input placeholder="abcd@gmail.com" {...field} />
               </FormControl>
@@ -69,7 +69,7 @@ export const LoginForm = () => {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Hasło</FormLabel>
+              <FormLabel className="dark:text-gray-300">Hasło</FormLabel>
               <FormControl>
                 <PasswordInput {...field} type="password" />
               </FormControl>
