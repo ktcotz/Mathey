@@ -23,3 +23,6 @@ export * from './Stepper';
 export * from './Input-otp';
 export * from './Checkbox';
 export * from './CustomMap';
+export * from './Tabs';
+export * from './dropdown-menu';
+export * from './avatar';

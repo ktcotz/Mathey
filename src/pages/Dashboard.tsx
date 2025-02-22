@@ -1,7 +1,10 @@
+import { Link } from 'react-router-dom';
 import { useAuth } from '../features/account/context/useAuth';
 import { MoreDetailsForm } from '../features/account/views/MoreDetailsForm';
 import { BackgroundDecoration, StepperContextProvider } from '../ui';
 import { useDocumentTitle } from 'usehooks-ts';
+import { AppRoutes } from '../types/shared';
+import { UserMenu } from '../features/student/UserMenu';
 
 export const Dashboard = () => {
   const { user } = useAuth();
@@ -19,10 +22,23 @@ export const Dashboard = () => {
           </StepperContextProvider>
         ))}
 
-      <h1>Hi Kamil! - {user?.phone}</h1>
-      <p>
-        Mieszkasz w {user?.city} - {user?.street} {user?.house_number}
-      </p>
+      <div className="container relative z-10 mx-auto p-4">
+        <header className="mb-6 flex items-center justify-between">
+          <Link
+            to={AppRoutes.Dashboard}
+            className="flex items-center justify-between"
+          >
+            <img src="./images/logo.svg" alt="Mathey" width={125} height={95} />
+
+            <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-3xl font-bold text-transparent">
+              Korepetycje
+            </span>
+          </Link>
+          <div className="flex items-center space-x-4">
+            <UserMenu />
+          </div>
+        </header>
+      </div>
     </div>
   );
 };
