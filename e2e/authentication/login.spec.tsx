@@ -7,14 +7,14 @@ test('Should correctly login user', async ({ page }) => {
   const passwordInput = page.locator(`input[type="password"]`);
   const submitButton = page.getByRole('button', { name: /Zaloguj się/i });
 
-  await emailInput.fill('test123@wp.pl');
-  await passwordInput.fill('Test123!');
+  await emailInput.fill('kamil.naskret@example.com');
+  await passwordInput.fill('Secure123!');
 
   await submitButton.click();
 
-  const heading = page.getByRole('heading', { name: /Hi/i });
+  const button = page.locator(`[aria-haspopup="menu"]`);
 
-  expect(heading).toBeDefined();
+  expect(button).toBeDefined();
 });
 
 test('Should see a error when is invalid data', async ({ page }) => {

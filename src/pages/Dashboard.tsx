@@ -4,7 +4,7 @@ import { MoreDetailsForm } from '../features/account/views/MoreDetailsForm';
 import { BackgroundDecoration, StepperContextProvider } from '../ui';
 import { useDocumentTitle } from 'usehooks-ts';
 import { AppRoutes } from '../types/shared';
-import { UserMenu } from '../features/student/UserMenu';
+import { UserMenu } from '../features/student/UserMenu/UserMenu';
 import { useTheme } from '../store/theme/useTheme';
 
 export const Dashboard = () => {

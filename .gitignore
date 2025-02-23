@@ -31,3 +31,4 @@ todo.md
 .env.testing
 .env.staging
 .env.test
+.env

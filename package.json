@@ -11,7 +11,7 @@
     "preview": "vite preview",
     "prepare": "husky install",
     "test": "vitest",
-    "test:e2e": "npx supabase start && playwright test --ui"
+    "test:e2e": "npx supabase db reset && npx ts-node supabase/users/users-seed.js && npx supabase start && playwright test --ui"
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.1.3",

@@ -163,3 +163,14 @@ export const updateUserProfile = async ({
     });
   }
 };
+
+export const userLogout = async () => {
+  const { error } = await supabase.auth.signOut();
+
+  if (error) {
+    throw new CustomError({
+      message: error.message,
+      code: error.status,
+    });
+  }
+};

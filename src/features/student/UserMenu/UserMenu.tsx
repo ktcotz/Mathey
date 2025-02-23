@@ -10,12 +10,15 @@ import {
   Avatar,
   AvatarImage,
   AvatarFallback,
-} from './../../ui';
-import { useAuth } from '../account/context/useAuth';
+} from '../../../ui';
+import { useAuth } from '../../account/context/useAuth';
 import { LogOut, Moon, Settings, Sun } from 'lucide-react';
-import { useTheme } from '../../store/theme/useTheme';
+import { useTheme } from '../../../store/theme/useTheme';
+import { useLogout } from '../../account/mutations/useLogout';
 
 export const UserMenu = () => {
+  const { logout, isLogout } = useLogout();
+
   const { user } = useAuth();
   const { theme, setTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
@@ -63,7 +66,7 @@ export const UserMenu = () => {
           <Settings className="mr-2 h-4 w-4" aria-label="Ustawienia konta" />
           <span>Ustawienia</span>
         </DropdownMenuItem>
-        <DropdownMenuItem>
+        <DropdownMenuItem disabled={!!isLogout} onClick={() => logout()}>
           <LogOut className="mr-2 h-4 w-4" aria-label="Wyloguj się" />
           <span>Wyloguj się</span>
         </DropdownMenuItem>

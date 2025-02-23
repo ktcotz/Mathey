@@ -5,8 +5,6 @@ import { useTheme } from '../store/theme/useTheme';
 export const Logo = () => {
   const { theme } = useTheme();
 
-  console.log(theme);
-
   return (
     <Link to={AppRoutes.Home}>
       <img
