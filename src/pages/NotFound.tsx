@@ -14,7 +14,7 @@ export const NotFound = () => {
   if (!mounted) return null;
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-br from-blue-100 to-indigo-200 p-4">
+    <div className="relative flex min-h-screen flex-col items-center justify-center overflow-y-hidden bg-gradient-to-br from-blue-100 to-indigo-200 p-4 dark:from-gray-900 dark:to-indigo-950">
       <BackgroundDecoration />
       <motion.div
         initial={{ opacity: 0, y: -50 }}
@@ -22,7 +22,9 @@ export const NotFound = () => {
         transition={{ duration: 0.5 }}
         className="text-center"
       >
-        <h1 className="text-9xl font-bold text-blue-600">404</h1>
+        <h1 className="text-9xl font-bold text-blue-600 dark:text-blue-400">
+          404
+        </h1>
         <motion.h2
           className="mb-2 mt-4 text-4xl font-semibold"
           initial={{ opacity: 0 }}
@@ -32,7 +34,7 @@ export const NotFound = () => {
           Ups! Strona nie znaleziona
         </motion.h2>
         <motion.p
-          className="mb-8 text-xl text-gray-600"
+          className="mb-8 text-xl text-gray-600 dark:text-gray-300"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4, duration: 0.5 }}
@@ -59,6 +61,7 @@ export const NotFound = () => {
           className="h-64 w-64"
           viewBox="0 0 200 200"
           xmlns="http://www.w3.org/2000/svg"
+          aria-label="Nie znaleziono strony"
         >
           <motion.path
             d="M 100, 100 m -75, 0 a 75,75 0 1,0 150,0 a 75,75 0 1,0 -150,0"
