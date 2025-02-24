@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import { useAuth } from '../features/account/context/useAuth';
 import { MoreDetailsForm } from '../features/account/views/MoreDetailsForm';
 import { BackgroundDecoration, StepperContextProvider } from '../ui';
@@ -31,7 +31,7 @@ export const Dashboard = () => {
             className="flex items-center justify-between"
           >
             <img
-              src={`./images/${theme === 'dark' ? 'logo-white' : 'logo'}.svg`}
+              src={`/images/${theme === 'dark' ? 'logo-white' : 'logo'}.svg`}
               alt="Mathey"
               width={125}
               height={95}
@@ -45,6 +45,9 @@ export const Dashboard = () => {
             <UserMenu />
           </div>
         </header>
+        <main>
+          <Outlet />
+        </main>
       </div>
     </div>
   );

@@ -15,6 +15,8 @@ import { useAuth } from '../../account/context/useAuth';
 import { LogOut, Moon, Settings, Sun } from 'lucide-react';
 import { useTheme } from '../../../store/theme/useTheme';
 import { useLogout } from '../../account/mutations/useLogout';
+import { Link } from 'react-router-dom';
+import { AppRoutes } from '../../../types/shared';
 
 export const UserMenu = () => {
   const { logout, isLogout } = useLogout();
@@ -63,8 +65,13 @@ export const UserMenu = () => {
           <span>{theme === 'dark' ? 'Tryb jasny' : 'Tryb ciemny'}</span>
         </DropdownMenuItem>
         <DropdownMenuItem>
-          <Settings className="mr-2 h-4 w-4" aria-label="Ustawienia konta" />
-          <span>Ustawienia</span>
+          <Link
+            className="flex w-full items-center gap-2"
+            to={AppRoutes.DashboardUserSettings}
+          >
+            <Settings className="mr-2 h-4 w-4" aria-label="Ustawienia konta" />
+            <span>Ustawienia</span>
+          </Link>
         </DropdownMenuItem>
         <DropdownMenuItem disabled={!!isLogout} onClick={() => logout()}>
           <LogOut className="mr-2 h-4 w-4" aria-label="Wyloguj się" />
