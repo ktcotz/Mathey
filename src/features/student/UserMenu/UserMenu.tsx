@@ -7,9 +7,6 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuItem,
-  Avatar,
-  AvatarImage,
-  AvatarFallback,
 } from '../../../ui';
 import { useAuth } from '../../account/context/useAuth';
 import { LogOut, Moon, Settings, Sun } from 'lucide-react';
@@ -17,6 +14,7 @@ import { useTheme } from '../../../store/theme/useTheme';
 import { useLogout } from '../../account/mutations/useLogout';
 import { Link } from 'react-router-dom';
 import { AppRoutes } from '../../../types/shared';
+import { UserAvatar } from '../../shared/Avatar/Avatar';
 
 export const UserMenu = () => {
   const { logout, isLogout } = useLogout();
@@ -25,21 +23,13 @@ export const UserMenu = () => {
   const { theme, setTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
 
-  if (!user?.firstName || !user?.lastName) return null;
-
-  const fallback = `${user.firstName[0].toUpperCase()}${user.lastName[0].toUpperCase()}`;
+  if (!user) return null;
 
   return (
     <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-12 w-12 rounded-full">
-          <Avatar className="h-12 w-12">
-            <AvatarImage
-              src="/avatars/01.png"
-              alt={`${user?.firstName} avatar`}
-            />
-            <AvatarFallback>{fallback}</AvatarFallback>
-          </Avatar>
+          <UserAvatar user={user} />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="end" forceMount>

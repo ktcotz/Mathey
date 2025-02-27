@@ -9,6 +9,7 @@ import {
   TabsList,
 } from '../../../ui';
 import { useAuth } from '../../account/context/useAuth';
+import { GeneralSettings } from './views/GeneralSettings';
 
 export const UserSettings = () => {
   const { user } = useAuth();
@@ -25,7 +26,9 @@ export const UserSettings = () => {
             <TabsTrigger value="subjects">Przedmioty</TabsTrigger>
             <TabsTrigger value="notifications">Powiadomienia</TabsTrigger>
           </TabsList>
-          <TabsContent value="general">Ogólne</TabsContent>
+          <TabsContent value="general">
+            <GeneralSettings />
+          </TabsContent>
           <TabsContent value="subjects">Przedmioty</TabsContent>
           <TabsContent value="notifications">Powiadomienia</TabsContent>
         </Tabs>

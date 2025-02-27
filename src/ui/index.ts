@@ -26,3 +26,5 @@ export * from './CustomMap';
 export * from './Tabs';
 export * from './Dropdown-menu';
 export * from './Avatar';
+export * from './Slider';
+export * from './Progress';
