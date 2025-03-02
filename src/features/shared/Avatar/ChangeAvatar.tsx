@@ -9,6 +9,9 @@ import { useEffect, useRef, useState } from 'react';
 import { AvatarModal } from './AvatarModal';
 import { AvatarPreview } from './AvatarPreview';
 import { AvatarControls } from './AvatarControls';
+import { useUploadAvatar } from './mutations/useUploadAvatar';
+import { toFile } from './utils/toFile';
+import { useAvatar } from './context/useAvatar';
 
 type ChangeAvatarProps = {
   user: User;
@@ -21,10 +24,13 @@ export const ChangeAvatar = ({
   user,
   className = 'w-12 h-12',
 }: ChangeAvatarProps) => {
+  const { uploadingAvatar } = useUploadAvatar({ userID: user.user_id });
+
   const [image, setImage] = useState('');
   const [scale, setScale] = useState(1);
   const [position, setPosition] = useState({ x: 0.5, y: 0.5 });
 
+  const { setCurrentTimestamp } = useAvatar();
   const [progress, setProgress] = useState(0);
 
   const [preview, setPreview] = useState<string | null>(null);
@@ -33,20 +39,6 @@ export const ChangeAvatar = ({
   const editorRef = useRef<AvatarEditor | null>(null);
 
   const toggleModalOpen = () => setModalOpen((prevModal) => !prevModal);
-
-  useEffect(() => {
-    if (progress < 100) {
-      const timer = setTimeout(() => {
-        setProgress((prev) => {
-          const newProgress = prev + 1;
-
-          return newProgress;
-        });
-      }, 500);
-
-      return () => clearTimeout(timer);
-    }
-  }, [progress]);
 
   const onDrop = (acceptedFiles: File[]) => {
     if (acceptedFiles.length <= 0) return null;
@@ -86,14 +78,35 @@ export const ChangeAvatar = ({
     });
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!editorRef.current) return;
 
     const canvas = editorRef.current.getImageScaledToCanvas();
     const dataUrl = canvas.toDataURL();
 
-    setImage(dataUrl);
-    setModalOpen(false);
+    const image = await toFile(dataUrl);
+
+    uploadingAvatar(
+      {
+        userID: user.user_id,
+        image,
+        onUpload: (progress) => {
+          if (!progress.total) return;
+
+          const progressPercent = Math.round(
+            (progress.loaded * 100) / progress.total,
+          );
+          setProgress(progressPercent);
+        },
+      },
+      {
+        onSuccess: () => {
+          setCurrentTimestamp();
+          setModalOpen(false);
+          setProgress(0);
+        },
+      },
+    );
   };
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -130,8 +143,8 @@ export const ChangeAvatar = ({
               <AvatarEditor
                 ref={editorRef}
                 image={image}
-                width={250}
-                height={250}
+                width={148}
+                height={148}
                 borderRadius={125}
                 rotate={0}
                 scale={scale}

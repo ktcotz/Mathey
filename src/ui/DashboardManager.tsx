@@ -4,6 +4,7 @@ import { Dashboard } from '../pages/Dashboard';
 import { DashboardAdmin } from '../pages/DashboardAdmin';
 import { FullPageSpinner } from './FullPageSpinner';
 import { DashboardTutor } from '../pages/DashboardTutor';
+import { AvatarContextProvider } from '../features/shared/Avatar/context/AvatarContext';
 
 export const DashboardManager = () => {
   const { user } = useAuth();
@@ -20,5 +21,9 @@ export const DashboardManager = () => {
 
   const DashboardType = manager[type];
 
-  return <DashboardType />;
+  return (
+    <AvatarContextProvider>
+      <DashboardType />
+    </AvatarContextProvider>
+  );
 };

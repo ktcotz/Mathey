@@ -101,7 +101,7 @@ export const RegisterForm = () => {
         {registerError instanceof CustomError && (
           <p
             role="alert"
-            className="text-center text-[0.8rem] font-medium text-destructive"
+            className="text-center text-[0.8rem] font-medium text-destructive dark:text-red-300"
           >
             {registerError.generateMessage()}
           </p>

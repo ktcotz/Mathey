@@ -59,6 +59,19 @@ export const registerUser = async ({
     });
   }
 
+  const { error: bucketError } = await supabase.storage.createBucket(
+    `user-${data.user?.id}`,
+    {
+      public: false,
+    },
+  );
+
+  if (bucketError) {
+    throw new CustomError({
+      message: bucketError.message,
+    });
+  }
+
   const parsedUser = UserSchema.parse(tableUser);
 
   return parsedUser;
@@ -113,6 +126,8 @@ export const changePassword = async ({ password }: { password: string }) => {
 };
 
 export const getUserDetails = async ({ userID }: UserDetailsID) => {
+  console.log('details');
+
   const { data: user, error } = await supabase
     .from('users')
     .select('*')

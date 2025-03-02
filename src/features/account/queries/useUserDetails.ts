@@ -6,11 +6,15 @@ export type UserDetailsID = {
 };
 
 export const useUserDetails = ({ userID }: UserDetailsID) => {
-  const { data: user, isLoading } = useQuery({
+  const {
+    data: user,
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ['userDetails', userID],
     queryFn: () => getUserDetails({ userID }),
     enabled: !!userID,
   });
 
-  return { user, isLoading } as const;
+  return { user, isLoading, refetch } as const;
 };
