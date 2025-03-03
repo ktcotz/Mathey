@@ -9,6 +9,8 @@ import {
   TabsList,
 } from '../../../ui';
 import { useAuth } from '../../account/context/useAuth';
+import { Badges } from '../../shared/Badges/Badges';
+import { Orders } from '../../shared/Orders/Orders';
 import { GeneralSettings } from './views/GeneralSettings';
 
 export const UserSettings = () => {
@@ -32,6 +34,12 @@ export const UserSettings = () => {
           <TabsContent value="subjects">Przedmioty</TabsContent>
           <TabsContent value="notifications">Powiadomienia</TabsContent>
         </Tabs>
+        <div className="mt-8">
+          <Orders />
+        </div>
+        <div className="mt-8">
+          <Badges />
+        </div>
       </CardContent>
     </Card>
   );

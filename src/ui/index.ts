@@ -30,3 +30,4 @@ export * from './Slider';
 export * from './Progress';
 export * from './Select';
 export * from './Textarea';
+export * from './Badge';
