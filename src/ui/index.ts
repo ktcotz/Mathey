@@ -28,3 +28,5 @@ export * from './Dropdown-menu';
 export * from './Avatar';
 export * from './Slider';
 export * from './Progress';
+export * from './Select';
+export * from './Textarea';

@@ -122,7 +122,7 @@ export const ChangeAvatar = ({
   });
 
   return (
-    <div className="flex items-center space-x-4">
+    <div className="flex flex-col items-center space-y-4 sm:flex-row sm:space-x-4">
       <div className="relative">
         <UserAvatar className={className} user={user} />
         <Button
@@ -154,7 +154,7 @@ export const ChangeAvatar = ({
             </div>
             <AvatarPreview preview={preview} progress={progress} />
           </div>
-          <div className="mt-4 flex justify-end gap-2">
+          <div className="mt-4 flex justify-center gap-2 sm:justify-end">
             <Button variant="outline" onClick={() => setModalOpen(false)}>
               Anuluj
             </Button>

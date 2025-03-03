@@ -21,7 +21,7 @@ export const UserSettings = () => {
       </CardHeader>
       <CardContent>
         <Tabs defaultValue="general" className="space-y-4">
-          <TabsList>
+          <TabsList className="flex h-auto w-fit flex-wrap items-center justify-start">
             <TabsTrigger value="general">Ogólne</TabsTrigger>
             <TabsTrigger value="subjects">Przedmioty</TabsTrigger>
             <TabsTrigger value="notifications">Powiadomienia</TabsTrigger>

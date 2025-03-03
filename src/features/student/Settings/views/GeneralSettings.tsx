@@ -1,5 +1,6 @@
 import { useAuth } from '../../../account/context/useAuth';
 import { ChangeAvatar } from '../../../shared/Avatar/ChangeAvatar';
+import { ProfileUpdater } from '../../../shared/ProfileUpdater/ProfileUpdater';
 
 export const GeneralSettings = () => {
   const { user } = useAuth();
@@ -7,10 +8,9 @@ export const GeneralSettings = () => {
   if (!user) return null;
 
   return (
-    <div className="space-y-4">
-      <div className="flex items-center space-x-4">
-        <ChangeAvatar user={user} className="h-20 w-20" />
-      </div>
+    <div className="space-y-6">
+      <ChangeAvatar user={user} className="h-20 w-20" />
+      <ProfileUpdater user={user} />
     </div>
   );
 };

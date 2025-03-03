@@ -24,7 +24,7 @@ export const Dashboard = () => {
           </StepperContextProvider>
         ))}
 
-      <div className="container relative z-10 mx-auto p-4">
+      <div className="container relative z-10 mx-auto">
         <header className="mb-6 flex items-center justify-between">
           <Link
             to={AppRoutes.Dashboard}
@@ -37,7 +37,7 @@ export const Dashboard = () => {
               height={95}
             />
 
-            <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-3xl font-bold text-transparent">
+            <span className="hidden bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-3xl font-bold text-transparent sm:block">
               Korepetycje
             </span>
           </Link>

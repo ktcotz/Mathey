@@ -1,7 +1,7 @@
-import z from 'zod';
+import { z } from 'zod';
 
-export const PersonalInfoFormSchema = z.object({
-  firstName: z
+export const ProfileUpdaterSchema = z.object({
+  name: z
     .string()
     .min(2, 'Imię musi mieć co najmniej 2 znaki')
     .max(50, 'Imię jest za długie')
@@ -9,8 +9,7 @@ export const PersonalInfoFormSchema = z.object({
       /^[A-Za-zÀ-ÿąęóćłńśźżĄĘÓĆŁŃŚŹŻ-]+$/,
       'Imię może zawierać tylko litery i myślniki',
     ),
-
-  lastName: z
+  surname: z
     .string()
     .min(2, 'Nazwisko musi mieć co najmniej 2 znaki')
     .max(50, 'Nazwisko jest za długie')
@@ -19,10 +18,9 @@ export const PersonalInfoFormSchema = z.object({
       'Nazwisko może zawierać tylko litery i myślniki',
     ),
 
-  purpose: z
-    .string()
-    .min(5, 'Cel powinien mieć co najmniej 5 znaków')
-    .max(200, 'Cel jest za długi'),
+  class: z.string().nonempty('Klasa jest wymagana'),
+
+  bio: z.string().max(250, 'Bio musi miec maksymalnie 250 znaków.'),
 });
 
-export type PersonalInfoFormData = z.infer<typeof PersonalInfoFormSchema>;
+export type ProfileUpdaterType = z.infer<typeof ProfileUpdaterSchema>;
