@@ -126,8 +126,6 @@ export const changePassword = async ({ password }: { password: string }) => {
 };
 
 export const getUserDetails = async ({ userID }: UserDetailsID) => {
-  console.log('details');
-
   const { data: user, error } = await supabase
     .from('users')
     .select('*')

@@ -15,11 +15,10 @@ type AuthContextProviderProps = {
 
 export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   const [userID, setUserID] = useState<string | null>(null);
-  const { user, refetch } = useUserDetails({ userID });
+  const { user } = useUserDetails({ userID });
 
   const setupUser = (newUserID: string) => {
     setUserID(newUserID);
-    refetch();
   };
 
   return (

@@ -22,6 +22,7 @@ import {
 } from './schemas/ProfileUpdaterSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { classes } from './data';
+import { useUpdateInformations } from './mutations/useUpdateInformations';
 
 type ProfileUpdaterProps = {
   user: User;
@@ -30,16 +31,22 @@ type ProfileUpdaterProps = {
 const MAX_BIO_LENGTH = 250;
 
 export const ProfileUpdater = ({ user }: ProfileUpdaterProps) => {
+  const { isUpdating, updateUser } = useUpdateInformations({
+    userID: user?.user_id,
+  });
+
   const form = useForm<ProfileUpdaterType>({
     resolver: zodResolver(ProfileUpdaterSchema),
     defaultValues: {
-      name: user?.firstName || '',
-      surname: user?.lastName || '',
+      firstName: user?.firstName || '',
+      lastName: user?.lastName || '',
+      class: user?.class || '',
+      bio: user?.bio || '',
     },
   });
 
   const submitHandler = (data: ProfileUpdaterType) => {
-    console.log(data);
+    updateUser({ userID: user?.user_id, ...data });
   };
 
   return (
@@ -50,7 +57,7 @@ export const ProfileUpdater = ({ user }: ProfileUpdaterProps) => {
       >
         <FormField
           control={form.control}
-          name="name"
+          name="firstName"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Imię</FormLabel>
@@ -64,7 +71,7 @@ export const ProfileUpdater = ({ user }: ProfileUpdaterProps) => {
 
         <FormField
           control={form.control}
-          name="surname"
+          name="lastName"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Nazwisko</FormLabel>
@@ -83,7 +90,11 @@ export const ProfileUpdater = ({ user }: ProfileUpdaterProps) => {
             <FormItem>
               <FormLabel>Klasa</FormLabel>
               <FormControl>
-                <Select {...field} value="another">
+                <Select
+                  value={field.value}
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
                   <SelectTrigger>
                     <SelectValue placeholder="Wybierz klasę" />
                   </SelectTrigger>
@@ -123,7 +134,7 @@ export const ProfileUpdater = ({ user }: ProfileUpdaterProps) => {
         </div>
         <div className="col-span-1 col-end-2">
           <Button type="submit" disabled={false}>
-            Zapisz aktualne zmiany
+            {isUpdating ? 'Zmieniam dane...' : 'Zapisz aktualne zmiany'}
           </Button>
         </div>
       </form>
