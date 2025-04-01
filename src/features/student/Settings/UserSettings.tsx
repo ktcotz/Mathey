@@ -12,6 +12,7 @@ import { useAuth } from '../../account/context/useAuth';
 import { Badges } from '../../shared/Badges/Badges';
 import { Orders } from '../../shared/Orders/Orders';
 import { GeneralSettings } from './views/GeneralSettings';
+import { LessonsSubjects } from './views/LessonsSubjects';
 
 export const UserSettings = () => {
   const { user } = useAuth();
@@ -31,7 +32,9 @@ export const UserSettings = () => {
           <TabsContent value="general">
             <GeneralSettings />
           </TabsContent>
-          <TabsContent value="subjects">Przedmioty</TabsContent>
+          <TabsContent value="subjects">
+            <LessonsSubjects />
+          </TabsContent>
           <TabsContent value="notifications">Powiadomienia</TabsContent>
         </Tabs>
         <div className="mt-8">

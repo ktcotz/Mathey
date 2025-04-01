@@ -1,4 +1,6 @@
-export const exampleUser = {
+import { User } from '../account/schemas/UserSchema';
+
+export const exampleUser: User = {
   firstName: 'Kamil',
   lastName: 'Naskręt',
   type: 'public' as const,
@@ -10,4 +12,6 @@ export const exampleUser = {
   house_number: '',
   street: '',
   detailsComplete: true,
+  bio: '',
+  class: 'another',
 };
