@@ -1,12 +1,17 @@
-import { Route, Routes } from 'react-router-dom';
-import { AppRoutes } from './types/shared';
 import { lazy, Suspense } from 'react';
-import { FullPageSpinner, ProtectedRoute, Toaster } from './ui';
-import { SwitcherContextProvider } from './ui';
-import { AuthContextProvider } from './features/account/context/AuthContext';
-import { NotFound } from './pages/NotFound';
-import { DashboardManager } from './ui/DashboardManager';
-import { Settings } from './pages/Dashboard/Settings';
+import { Route, Routes } from 'react-router-dom';
+import { AppRoutes } from './types';
+import {
+  FullPageSpinner,
+  ProtectedRoute,
+  Toaster,
+  SwitcherContextProvider,
+  DashboardManager,
+} from './ui';
+
+import { NotFound, Settings } from './pages';
+
+import { AuthContextProvider } from './features/account';
 
 const Home = lazy(async () => {
   const { Home } = await import('./pages/Home');
@@ -29,6 +34,7 @@ export const App = () => {
               </AuthContextProvider>
             }
           >
+            x
             <Route
               path={AppRoutes.DashboardUserSettings}
               element={<Settings />}

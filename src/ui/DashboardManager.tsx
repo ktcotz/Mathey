@@ -1,9 +1,7 @@
 import { ElementType } from 'react';
-import { useAuth } from '../features/account/context/useAuth';
-import { Dashboard } from '../pages/Dashboard';
-import { DashboardAdmin } from '../pages/DashboardAdmin';
+import { useAuth } from '../features/account';
+import { Dashboard, DashboardAdmin, DashboardTutor } from '../pages';
 import { FullPageSpinner } from './FullPageSpinner';
-import { DashboardTutor } from '../pages/DashboardTutor';
 import { AvatarContextProvider } from '../features/shared/Avatar/context/AvatarContext';
 
 export const DashboardManager = () => {

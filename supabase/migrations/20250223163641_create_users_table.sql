@@ -26,3 +26,8 @@ CREATE POLICY "Allow users to read their own data"
 ON public.users
 FOR SELECT
 USING (user_id = auth.uid());
+
+CREATE POLICY "Allow all users to insert"
+ON public.users
+FOR INSERT
+WITH CHECK (true);

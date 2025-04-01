@@ -17,7 +17,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useLogin } from '../mutations/useLogin';
 import { CustomError } from '../../../utils/CustomError';
 import { useNavigate } from 'react-router';
-import { AppRoutes } from '../../../types/shared';
+import { AppRoutes } from '../../../types';
 
 export const LoginForm = () => {
   const { changeForm } = useSwitcher();

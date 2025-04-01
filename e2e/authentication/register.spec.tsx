@@ -30,7 +30,9 @@ test('Should correctly register user', async ({ page }) => {
   expect(loginButton).toBeDefined();
 });
 
-test('Should see a error when is invalid data', async ({ page }) => {
+test('Should see a error when is email actually in database', async ({
+  page,
+}) => {
   await page.goto('http://localhost:3000');
 
   const registerFormButton = page.getByRole('button', { name: /Rejestracja/i });
@@ -44,8 +46,8 @@ test('Should see a error when is invalid data', async ({ page }) => {
   const passwordInput = page.locator(`input[type="password"]`);
   const submitButton = page.getByRole('button', { name: /Zarejestruj się/i });
 
-  await emailInput.fill(`test123@wp.pl`);
-  await passwordInput.fill('Test123!');
+  await emailInput.fill(`kamil.naskret@example.com`);
+  await passwordInput.fill('Secure123!');
   await phoneInput.fill('123456789');
 
   await submitButton.click();

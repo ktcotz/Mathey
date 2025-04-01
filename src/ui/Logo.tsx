@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import { AppRoutes } from '../types/shared';
-import { useTheme } from '../store/theme/useTheme';
+import { AppRoutes } from '../types';
+import { useTheme } from '../store';
 
 export const Logo = () => {
   const { theme } = useTheme();

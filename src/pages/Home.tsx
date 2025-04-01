@@ -45,7 +45,7 @@ export const Home = () => {
         </div>
         <div className="rounded-lg bg-white p-8 shadow-xl dark:bg-gray-800">
           <FormSwitcher data={homeSwitcher} />
-          <div className="h-[375px]">
+          <div className="min-h-[375px]">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentForm}

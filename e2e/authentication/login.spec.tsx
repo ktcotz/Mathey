@@ -29,6 +29,8 @@ test('Should see a error when is invalid data', async ({ page }) => {
 
   await submitButton.click();
 
+  await page.waitForResponse((response) => response.status() !== 200);
+
   const invalid = page.getByText(/Nie ma takiego użytkownika/i);
 
   expect(invalid).toBeDefined();
