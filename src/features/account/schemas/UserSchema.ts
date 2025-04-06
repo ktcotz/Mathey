@@ -20,6 +20,8 @@ export const UserSchema = z.object({
     'high-school',
     'technical-school',
   ]),
+  level: z.number().default(1),
+  xp: z.number().default(0),
 });
 
 export type User = z.infer<typeof UserSchema>;

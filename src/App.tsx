@@ -12,6 +12,7 @@ import {
 import { NotFound, Settings } from './pages';
 
 import { AuthContextProvider } from './features/account';
+import { AccountLevelContextProvider } from './features/account/components/Level/context/AccountContext';
 
 const Home = lazy(async () => {
   const { Home } = await import('./pages/Home');
@@ -29,7 +30,9 @@ export const App = () => {
             element={
               <AuthContextProvider>
                 <ProtectedRoute>
-                  <DashboardManager />
+                  <AccountLevelContextProvider>
+                    <DashboardManager />
+                  </AccountLevelContextProvider>
                 </ProtectedRoute>
               </AuthContextProvider>
             }
