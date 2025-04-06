@@ -14,4 +14,6 @@ export const exampleUser: User = {
   detailsComplete: true,
   bio: '',
   class: 'another',
+  level: 1,
+  xp: 0,
 };
