@@ -27,11 +27,14 @@ export const UserMenu = () => {
   if (!user) return null;
 
   return (
-    <nav className="flex items-center gap-4">
+    <nav className="flex w-full items-center gap-4 sm:w-auto">
       <Level user={user} />
       <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" className="relative h-12 w-12 rounded-full">
+          <Button
+            variant="ghost"
+            className="relative ml-auto h-12 w-12 rounded-full shadow-[0_0_0_2px_rgba(255,255,255,0.35)] dark:shadow-[0_0_0_2px_rgba(0,0,0,0.35)] sm:ml-0"
+          >
             <UserAvatar user={user} />
           </Button>
         </DropdownMenuTrigger>

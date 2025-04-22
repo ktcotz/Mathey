@@ -24,7 +24,7 @@ export const Level = ({ user }: LevelProps) => {
   ));
 
   return (
-    <div className="relative flex flex-col gap-2 rounded-xl border border-black/5 p-2 text-[10px] shadow-sm dark:border-white/5 sm:text-xs">
+    <div className="relative ml-auto flex flex-col gap-2 rounded-xl border border-black/5 p-2 text-[10px] dark:border-white/5 sm:ml-0 sm:text-xs">
       <div className="flex items-center justify-between gap-2 border-b border-black/5 pb-2 dark:border-white/5 sm:gap-10">
         <div className="flex items-center">
           <Trophy

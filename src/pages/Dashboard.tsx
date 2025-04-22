@@ -43,7 +43,7 @@ export const Dashboard = () => {
               Korepetycje
             </span>
           </Link>
-          <div className="flex items-center space-x-4">
+          <div className="flex w-full items-center space-x-4 sm:w-auto">
             <UserMenu />
           </div>
         </header>
