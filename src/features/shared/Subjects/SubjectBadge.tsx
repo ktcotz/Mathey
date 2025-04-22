@@ -1,6 +1,11 @@
 import { Badge } from '../../../ui';
-import { SubjectSchemaType } from './schemas/SubjectsSchema';
+import { SUBJECTS_NAMES } from './constants';
+import { SubjectsType } from './schemas/SubjectsSchema';
 
-export const SubjectBadge = ({ name }: SubjectSchemaType) => {
-  return <Badge>{name}</Badge>;
+type SubjectBadgeProps = {
+  subject: SubjectsType;
+};
+
+export const SubjectBadge = ({ subject }: SubjectBadgeProps) => {
+  return <Badge>{SUBJECTS_NAMES[subject]}</Badge>;
 };

@@ -32,3 +32,4 @@ export * from './Select';
 export * from './Textarea';
 export * from './Badge';
 export * from './DashboardManager';
+export * from './Skeleton';

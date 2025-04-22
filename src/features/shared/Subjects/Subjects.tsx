@@ -18,12 +18,16 @@ import { useEffect, useState } from 'react';
 import { User } from '../../account/schemas/UserSchema';
 import { SUBJECTS_NAMES } from './constants';
 import { SubjectBadge } from './SubjectBadge';
+import { useGetAllSubjects } from './queries/useGetAllSubjects';
+import { SubjectsSkeleton } from './SubjectsSkeleton';
 
 type SubjectsProps = {
   user: User;
 };
 
 export const Subjects = ({ user }: SubjectsProps) => {
+  const { data: allSubjects, isLoading } = useGetAllSubjects(user);
+
   const form = useForm<SubjectFilterSchemaType>({
     resolver: zodResolver(SubjectsFilterSchema),
   });
@@ -59,10 +63,8 @@ export const Subjects = ({ user }: SubjectsProps) => {
   }, [debouncedFilter, tempSubjects]);
 
   const submitHandler = () => {
-    console.log('hi!');
+    console.log(filteredSubject);
   };
-
-  const subjects = filteredSubject.length > 0 ? filteredSubject : tempSubjects;
 
   return (
     <div className="space-y-4">
@@ -83,8 +85,9 @@ export const Subjects = ({ user }: SubjectsProps) => {
         </form>
       </Form>
       <div className="flex flex-wrap gap-2">
-        {subjects.map((subject) => (
-          <SubjectBadge key={subject.type} {...subject} />
+        {isLoading && <SubjectsSkeleton />}
+        {allSubjects?.map((subject) => (
+          <SubjectBadge key={subject} subject={subject} />
         ))}
       </div>
     </div>
