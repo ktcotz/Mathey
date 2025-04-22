@@ -1,5 +1,6 @@
+import { AddressInfoFormData } from '../../../features/account/schemas/AddressInfoFormSchema';
 import { MapPosition } from '../CustomMap';
-import { AddressSchema } from '../schemas/AddressSchema';
+import { AddressSchema, DetailsAddressSchema } from '../schemas/AddressSchema';
 
 export const getMyLocation = (): Promise<MapPosition> => {
   if (!navigator.geolocation) {
@@ -34,6 +35,41 @@ export const getMyLocation = (): Promise<MapPosition> => {
       },
     );
   });
+};
+
+export const getAddressDetails = async ({
+  street,
+  houseNumber,
+  city,
+  postalCode,
+}: AddressInfoFormData) => {
+  try {
+    const address = encodeURIComponent(
+      `${street} ${houseNumber}, ${city}, ${postalCode}`,
+    );
+
+    const response = await fetch(
+      `https://nominatim.openstreetmap.org/search?q=${address}&format=json&limit=1`,
+    );
+
+    if (!response.ok) {
+      throw new Error('Nie udało się pobrać dokładnych danych.');
+    }
+
+    const data = await response.json();
+
+    if (data && Array.isArray(data)) {
+      const parsed = DetailsAddressSchema.parse(data[0]);
+
+      return parsed;
+    }
+
+    return null;
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      throw new Error(err.message);
+    }
+  }
 };
 
 export const reverseGeocoding = async ({ lat, lng }: MapPosition) => {

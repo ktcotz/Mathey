@@ -30,6 +30,7 @@ import { Address } from '../../../ui/CustomMap/schemas/AddressSchema';
 import { DetailsFormData } from './MoreDetailsForm';
 import { useUpdateProfile } from '../mutations/useUpdateProfile';
 import { useAuth } from '../context/useAuth';
+import { getAddressDetails } from '../../../ui/CustomMap/services/services';
 
 type AddressInfoFormProps = {
   data: DetailsFormData;
@@ -69,18 +70,29 @@ export const AddressInfoForm = ({ data }: AddressInfoFormProps) => {
 
   const isMapVisible = form.watch('geolocation');
 
-  const submitHandler = ({
+  const submitHandler = async ({
     city,
     houseNumber,
     postalCode,
     street,
   }: AddressInfoFormData) => {
+    const details = await getAddressDetails({
+      city,
+      houseNumber,
+      postalCode,
+      street,
+    });
+
+    if (!details) return;
+
     const fullData = {
       city,
       houseNumber,
       street,
       postalCode,
       ...data,
+      lon: details.lon,
+      lat: details.lat,
     };
 
     updateProfile({ ...fullData, userID: user!.user_id });

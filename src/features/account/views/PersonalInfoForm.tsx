@@ -81,7 +81,9 @@ export const PersonalInfoForm = ({
           name="purpose"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Twój cel związany z matematyką</FormLabel>
+              <FormLabel>
+                Twój cel związany z nauką w naszej aplikacji
+              </FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>

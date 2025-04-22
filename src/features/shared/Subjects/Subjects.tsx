@@ -24,8 +24,13 @@ type SubjectsProps = {
 };
 
 export const Subjects = ({ user }: SubjectsProps) => {
-  const [debouncedFilter, setDebouncedFilter] = useState('');
-  const [tempSubjects, setTempSubjects] = useState<SubjectSchemaType[]>(() => {
+  const form = useForm<SubjectFilterSchemaType>({
+    resolver: zodResolver(SubjectsFilterSchema),
+  });
+
+  const subjectFilter = form.watch('filter');
+  const [debouncedFilter, setDebouncedFilter] = useState(subjectFilter);
+  const [tempSubjects] = useState<SubjectSchemaType[]>(() => {
     return subjectsArray.map((subject) => ({
       user_id: user.user_id,
       type: subject,
@@ -33,11 +38,9 @@ export const Subjects = ({ user }: SubjectsProps) => {
     }));
   });
 
-  const form = useForm<SubjectFilterSchemaType>({
-    resolver: zodResolver(SubjectsFilterSchema),
-  });
-
-  const subjectFilter = form.watch('filter');
+  const [filteredSubject, setFilteredSubjects] = useState<SubjectSchemaType[]>(
+    [],
+  );
 
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -48,16 +51,18 @@ export const Subjects = ({ user }: SubjectsProps) => {
   }, [subjectFilter]);
 
   useEffect(() => {
-    setTempSubjects(
+    setFilteredSubjects(
       tempSubjects.filter((subject) =>
-        subject.name.toLowerCase().includes(debouncedFilter.toLowerCase()),
+        subject.name.toLowerCase().includes(debouncedFilter?.toLowerCase()),
       ),
     );
-  }, [debouncedFilter]);
+  }, [debouncedFilter, tempSubjects]);
 
   const submitHandler = () => {
     console.log('hi!');
   };
+
+  const subjects = filteredSubject.length > 0 ? filteredSubject : tempSubjects;
 
   return (
     <div className="space-y-4">
@@ -78,7 +83,7 @@ export const Subjects = ({ user }: SubjectsProps) => {
         </form>
       </Form>
       <div className="flex flex-wrap gap-2">
-        {tempSubjects.map((subject) => (
+        {subjects.map((subject) => (
           <SubjectBadge key={subject.type} {...subject} />
         ))}
       </div>

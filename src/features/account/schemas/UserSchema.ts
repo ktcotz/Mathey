@@ -22,6 +22,8 @@ export const UserSchema = z.object({
   ]),
   level: z.number().default(1),
   xp: z.number().default(0),
+  lat: z.number().nullable(),
+  lon: z.number().nullable(),
 });
 
 export type User = z.infer<typeof UserSchema>;

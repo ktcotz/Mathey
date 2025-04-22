@@ -1,4 +1,5 @@
 import { supabase } from '../../../lib';
+import { DetailsOfAddress } from '../../../ui/CustomMap/schemas/AddressSchema';
 import { CustomError } from '../../../utils/CustomError';
 import { API_URL } from '../../mail/services/api';
 import { UserDetailsID } from '../queries/useUserDetails';
@@ -152,7 +153,12 @@ export const updateUserProfile = async ({
   postalCode,
   purpose,
   userID,
-}: DetailsFormData & AddressInfoFormData & UserDetailsID) => {
+  lon,
+  lat,
+}: DetailsFormData &
+  AddressInfoFormData &
+  UserDetailsID &
+  DetailsOfAddress) => {
   const data = {
     city,
     street,
@@ -161,6 +167,8 @@ export const updateUserProfile = async ({
     lastName,
     postalCode,
     purpose,
+    lon,
+    lat,
   };
 
   const { error } = await supabase
