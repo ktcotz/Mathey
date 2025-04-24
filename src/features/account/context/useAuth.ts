@@ -9,9 +9,5 @@ export const useAuth = () => {
     throw new Error("Can't use Auth Context without provider!");
   }
 
-  if (!context.user || context.role !== 'public') {
-    throw new Error('Only for public users!');
-  }
-
   return { ...context, user: context.user as User };
 };
