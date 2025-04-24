@@ -1,9 +1,10 @@
 import { createContext, ReactNode, useState } from 'react';
 import { useUserDetails } from '../queries/useUserDetails';
-import { User } from '../schemas/UserSchema';
+import { GeneralUser, Role } from '../schemas/UserSchema';
 
 type AuthContextData = {
-  user?: User;
+  user?: GeneralUser;
+  role?: Role;
   setupUser: (userID: string) => void;
 };
 
@@ -22,7 +23,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, setupUser }}>
+    <AuthContext.Provider value={{ user, setupUser, role: user?.type }}>
       {children}
     </AuthContext.Provider>
   );

@@ -1,17 +1,16 @@
 import { useContext } from 'react';
 import { AuthContext } from './AuthContext';
-import { User } from '../schemas/UserSchema';
 
-export const useAuth = () => {
+export const useAdmin = () => {
   const context = useContext(AuthContext);
 
   if (context === null) {
     throw new Error("Can't use Auth Context without provider!");
   }
 
-  if (!context.user || context.role !== 'public') {
-    throw new Error('Only for public users!');
+  if (context.role !== 'admin') {
+    throw new Error('Access denied: only for admin!');
   }
 
-  return { ...context, user: context.user as User };
+  return context;
 };
