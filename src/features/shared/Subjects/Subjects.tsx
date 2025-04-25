@@ -69,7 +69,7 @@ export const Subjects = ({ user }: SubjectsProps) => {
   return (
     <div className="space-y-4">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(submitHandler)}>
+        <form onSubmit={form.handleSubmit(submitHandler)} className="max-w-xl">
           <FormField
             control={form.control}
             name="filter"

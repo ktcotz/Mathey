@@ -25,6 +25,11 @@ export const ProfileUpdaterSchema = z.object({
     .max(250, 'Bio musi miec maksymalnie 250 znaków.')
     .default('')
     .optional(),
+
+  distance: z
+    .union([z.literal('10'), z.literal('20'), z.literal('30'), z.literal('40')])
+    .transform((val) => Number(val))
+    .optional(),
 });
 
 export type ProfileUpdaterType = z.infer<typeof ProfileUpdaterSchema>;

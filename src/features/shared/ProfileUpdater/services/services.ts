@@ -6,7 +6,7 @@ import { ProfileUpdaterType } from '../schemas/ProfileUpdaterSchema';
 export const updateUserInformations = async ({
   userID,
   ...updaterData
-}: UserDetailsID & ProfileUpdaterType) => {
+}: UserDetailsID & Partial<ProfileUpdaterType>) => {
   const { data, error } = await supabase
     .from('users')
     .update({ ...updaterData })

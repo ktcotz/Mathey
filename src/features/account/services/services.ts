@@ -155,10 +155,11 @@ export const updateUserProfile = async ({
   userID,
   lon,
   lat,
-}: DetailsFormData &
-  AddressInfoFormData &
-  UserDetailsID &
-  DetailsOfAddress) => {
+  distance,
+}: Partial<DetailsFormData> &
+  Partial<AddressInfoFormData> &
+  Partial<UserDetailsID> &
+  Partial<DetailsOfAddress>) => {
   const data = {
     city,
     street,
@@ -169,6 +170,7 @@ export const updateUserProfile = async ({
     purpose,
     lon,
     lat,
+    distance,
   };
 
   const { error } = await supabase

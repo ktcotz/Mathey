@@ -21,6 +21,10 @@ export const AddressInfoFormSchema = z.object({
     .regex(/^\d{2}\d{3}$/, 'Kod pocztowy musi być w formacie XX-XXX'),
 
   geolocation: z.boolean().default(false).optional(),
+
+  distance: z
+    .union([z.literal('10'), z.literal('20'), z.literal('30'), z.literal('40')])
+    .transform((val) => Number(val)),
 });
 
 export type AddressInfoFormData = z.infer<typeof AddressInfoFormSchema>;

@@ -10,7 +10,9 @@ import {
   Input,
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
+  SelectLabel,
   SelectTrigger,
   SelectValue,
   Textarea,
@@ -42,6 +44,7 @@ export const ProfileUpdater = ({ user }: ProfileUpdaterProps) => {
       lastName: user?.lastName || '',
       class: user?.class || '',
       bio: user?.bio || '',
+      distance: Number(user?.distance) || 10,
     },
   });
 
@@ -110,6 +113,36 @@ export const ProfileUpdater = ({ user }: ProfileUpdaterProps) => {
                   </SelectContent>
                 </Select>
               </FormControl>
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="distance"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Dystans pobierania korepetytorów</FormLabel>
+              <FormControl>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={String(field.value)}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Wybierz do jakiej maksymalnie długości mamy szukać korepetycji" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>Dystans</SelectLabel>
+                      <SelectItem value="10">10km</SelectItem>
+                      <SelectItem value="20">20km</SelectItem>
+                      <SelectItem value="30">30km</SelectItem>
+                      <SelectItem value="40">40km</SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />

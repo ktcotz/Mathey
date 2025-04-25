@@ -18,6 +18,12 @@ import {
   useStepper,
   useLocation,
   InlineSpinner,
+  Select,
+  SelectTrigger,
+  SelectContent,
+  SelectGroup,
+  SelectLabel,
+  SelectItem,
 } from '../../../ui';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
@@ -31,6 +37,7 @@ import { DetailsFormData } from './MoreDetailsForm';
 import { useUpdateProfile } from '../mutations/useUpdateProfile';
 import { useAuth } from '../context/useAuth';
 import { getAddressDetails } from '../../../ui/CustomMap/services/services';
+import { SelectValue } from '@radix-ui/react-select';
 
 type AddressInfoFormProps = {
   data: DetailsFormData;
@@ -65,22 +72,36 @@ export const AddressInfoForm = ({ data }: AddressInfoFormProps) => {
       houseNumber: '',
       street: '',
       geolocation: false,
+      distance: 10,
     },
   });
 
+  const { city, houseNumber, postalCode, street } = form.getValues();
+
+  const areAddressFieldsFilled = !!(
+    city.trim() &&
+    street.trim() &&
+    houseNumber.trim() &&
+    postalCode.length === 5
+  );
+
   const isMapVisible = form.watch('geolocation');
+
+  // console.log(areAddressFieldsFilled);
 
   const submitHandler = async ({
     city,
     houseNumber,
     postalCode,
     street,
+    distance,
   }: AddressInfoFormData) => {
     const details = await getAddressDetails({
       city,
       houseNumber,
       postalCode,
       street,
+      distance,
     });
 
     if (!details) return;
@@ -93,6 +114,7 @@ export const AddressInfoForm = ({ data }: AddressInfoFormProps) => {
       ...data,
       lon: details.lon,
       lat: details.lat,
+      distance: Number(distance),
     };
 
     updateProfile({ ...fullData, userID: user!.user_id });
@@ -218,6 +240,38 @@ export const AddressInfoForm = ({ data }: AddressInfoFormProps) => {
               )}
             />
           </Fragment>
+        )}
+
+        {areAddressFieldsFilled && (
+          <FormField
+            control={form.control}
+            name="distance"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Dystans pobierania korepetytorów</FormLabel>
+                <FormControl>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={String(field.value)}
+                  >
+                    <SelectTrigger className="w-[180px]">
+                      <SelectValue placeholder="Wybierz do jakiej maksymalnie długości mamy szukać korepetycji" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectLabel>Dystans</SelectLabel>
+                        <SelectItem value="10">10km</SelectItem>
+                        <SelectItem value="20">20km</SelectItem>
+                        <SelectItem value="30">30km</SelectItem>
+                        <SelectItem value="40">40km</SelectItem>
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         )}
 
         <div className="flex items-center justify-between">

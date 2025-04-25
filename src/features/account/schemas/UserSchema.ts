@@ -23,6 +23,9 @@ export const UserSchema = BaseUserSchema.extend({
   city: z.string().nullable(),
   street: z.string().nullable(),
   house_number: z.string().nullable(),
+  distance: z
+    .union([z.literal('10'), z.literal('20'), z.literal('30'), z.literal('40')])
+    .nullable(),
   bio: z.string(),
   class: z.enum([
     'another',
