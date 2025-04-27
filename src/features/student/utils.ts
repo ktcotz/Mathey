@@ -16,4 +16,7 @@ export const exampleUser: User = {
   class: 'another',
   level: 1,
   xp: 0,
+  distance: '10',
+  lat: 0,
+  lon: 0,
 };
