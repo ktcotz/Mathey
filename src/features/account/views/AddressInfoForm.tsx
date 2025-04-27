@@ -33,22 +33,28 @@ import {
 import { Fragment } from 'react/jsx-runtime';
 
 import { Address } from '../../../ui/CustomMap/schemas/AddressSchema';
-import { DetailsFormData } from './MoreDetailsForm';
 import { useUpdateProfile } from '../mutations/useUpdateProfile';
 import { useAuth } from '../context/useAuth';
 import { getAddressDetails } from '../../../ui/CustomMap/services/services';
 import { SelectValue } from '@radix-ui/react-select';
+import { TeacherDTO } from '../../../pages';
 
-type AddressInfoFormProps = {
-  data: DetailsFormData;
+type AddressInfoFormProps<T> = {
+  data: T;
+  isCreatingTeacher?: boolean;
+  setupData?: (data: Partial<TeacherDTO>) => void;
 };
 
-export const AddressInfoForm = ({ data }: AddressInfoFormProps) => {
+export const AddressInfoForm = <T,>({
+  data,
+  isCreatingTeacher,
+  setupData,
+}: AddressInfoFormProps<T>) => {
   const { user } = useAuth();
   const { previousStep } = useStepper();
   const { getLocation, isLoading, position } = useLocation();
   const { isUpdating, updateProfile } = useUpdateProfile({
-    userID: user!.user_id,
+    userID: user?.user_id,
   });
 
   const getMapData = ({
@@ -64,8 +70,12 @@ export const AddressInfoForm = ({ data }: AddressInfoFormProps) => {
     form.setValue('postalCode', postcode.replace('-', ''));
   };
 
+  const formSchema = isCreatingTeacher
+    ? AddressInfoFormSchema.omit({ distance: true })
+    : AddressInfoFormSchema;
+
   const form = useForm<AddressInfoFormData>({
-    resolver: zodResolver(AddressInfoFormSchema),
+    resolver: zodResolver(formSchema),
     defaultValues: {
       city: '',
       postalCode: '',
@@ -86,8 +96,6 @@ export const AddressInfoForm = ({ data }: AddressInfoFormProps) => {
   );
 
   const isMapVisible = form.watch('geolocation');
-
-  // console.log(areAddressFieldsFilled);
 
   const submitHandler = async ({
     city,
@@ -117,7 +125,11 @@ export const AddressInfoForm = ({ data }: AddressInfoFormProps) => {
       distance: Number(distance),
     };
 
-    updateProfile({ ...fullData, userID: user!.user_id });
+    if (isCreatingTeacher) {
+      setupData?.({ city, houseNumber, street, postalCode });
+    } else {
+      updateProfile({ ...fullData, userID: user!.user_id });
+    }
   };
 
   return (
@@ -242,7 +254,7 @@ export const AddressInfoForm = ({ data }: AddressInfoFormProps) => {
           </Fragment>
         )}
 
-        {areAddressFieldsFilled && (
+        {!isCreatingTeacher && areAddressFieldsFilled && (
           <FormField
             control={form.control}
             name="distance"
@@ -275,12 +287,23 @@ export const AddressInfoForm = ({ data }: AddressInfoFormProps) => {
         )}
 
         <div className="flex items-center justify-between">
-          <Button type="button" onClick={previousStep}>
-            Wstecz
-          </Button>
-          <Button type="submit" disabled={!!isUpdating}>
-            {isUpdating ? <InlineSpinner /> : 'Zaktualizuj profil'}
-          </Button>
+          {isCreatingTeacher ? (
+            <Fragment>
+              <Button type="button" onClick={previousStep}>
+                Wstecz
+              </Button>
+              <Button type="submit">Przejdź dalej</Button>
+            </Fragment>
+          ) : (
+            <Fragment>
+              <Button type="button" onClick={previousStep}>
+                Wstecz
+              </Button>
+              <Button type="submit" disabled={!!isUpdating}>
+                {isUpdating ? <InlineSpinner /> : 'Zaktualizuj profil'}
+              </Button>
+            </Fragment>
+          )}
         </div>
       </form>
     </Form>

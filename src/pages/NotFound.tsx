@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { BackgroundDecoration, Button } from '../ui';
 import { Link } from 'react-router-dom';
 import { AppRoutes } from '../types/shared';
+import { useDocumentTitle } from 'usehooks-ts';
 
 export const NotFound = () => {
   const [mounted, setMounted] = useState(false);
@@ -10,6 +11,10 @@ export const NotFound = () => {
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  useDocumentTitle(
+    `Nie znaleziono | Mathey - Twój korepetytor matematyki online`,
+  );
 
   if (!mounted) return null;
 

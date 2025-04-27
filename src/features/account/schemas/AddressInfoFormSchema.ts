@@ -24,7 +24,9 @@ export const AddressInfoFormSchema = z.object({
 
   distance: z
     .union([z.literal('10'), z.literal('20'), z.literal('30'), z.literal('40')])
-    .transform((val) => Number(val)),
+    .transform((val) => Number(val))
+    .optional()
+    .default('10'),
 });
 
 export type AddressInfoFormData = z.infer<typeof AddressInfoFormSchema>;

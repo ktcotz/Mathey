@@ -20,6 +20,8 @@ import {
 } from '../schemas/RegisterFormSchema';
 import { useRegister } from '../mutations/useRegister';
 import { useMail } from '../../mail/useMail';
+import { Link } from 'react-router-dom';
+import { AppRoutes } from '../../../types';
 
 export const RegisterForm = () => {
   const { register, isRegistering, registerError } = useRegister();
@@ -98,6 +100,19 @@ export const RegisterForm = () => {
         <Button type="submit" disabled={!!isRegistering || !!isSending}>
           {isRegistering || isSending ? <InlineSpinner /> : 'Zarejestruj się!'}
         </Button>
+
+        <div className="mt-2 text-center">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            Chcesz zostać korepetytorem?{' '}
+            <Link
+              to={AppRoutes.CreateTeacher}
+              className="text-blue-600 hover:underline dark:text-blue-400"
+            >
+              Zarejestruj się jako korepetytor
+            </Link>
+          </p>
+        </div>
+
         {registerError instanceof CustomError && (
           <p
             role="alert"

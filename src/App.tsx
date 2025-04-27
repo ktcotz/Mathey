@@ -7,9 +7,10 @@ import {
   Toaster,
   SwitcherContextProvider,
   DashboardManager,
+  StepperContextProvider,
 } from './ui';
 
-import { NotFound, Settings } from './pages';
+import { NotFound, Settings, BeTeacher } from './pages';
 
 import { AuthContextProvider } from './features/account';
 import { AccountLevelContextProvider } from './features/account/components/Level/context/AccountContext';
@@ -37,12 +38,21 @@ export const App = () => {
               </AuthContextProvider>
             }
           >
-            x
             <Route
               path={AppRoutes.DashboardUserSettings}
               element={<Settings />}
             />
           </Route>
+          <Route
+            path={AppRoutes.CreateTeacher}
+            element={
+              <AuthContextProvider>
+                <StepperContextProvider maxStep={3}>
+                  <BeTeacher />
+                </StepperContextProvider>
+              </AuthContextProvider>
+            }
+          />
           <Route path={AppRoutes.NotFound} element={<NotFound />} />
         </Routes>
         <Toaster />

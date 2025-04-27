@@ -57,7 +57,9 @@ export const Subjects = ({ user }: SubjectsProps) => {
   useEffect(() => {
     setFilteredSubjects(
       tempSubjects.filter((subject) =>
-        subject.name.toLowerCase().includes(debouncedFilter?.toLowerCase()),
+        SUBJECTS_NAMES[subject.type]
+          .toLowerCase()
+          .includes(debouncedFilter?.toLowerCase()),
       ),
     );
   }, [debouncedFilter, tempSubjects]);

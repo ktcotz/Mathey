@@ -1,6 +1,12 @@
 import z from 'zod';
+import { isValidPhoneNumber } from 'libphonenumber-js';
 
-export const PersonalInfoFormSchema = z.object({
+export const RegisterTeacherFormSchema = z.object({
+  phone: z
+    .string({ message: 'Numer telefonu jest wymagany.' })
+    .refine((value) => isValidPhoneNumber(value, 'PL'), {
+      message: 'Podaj poprawny polski numer',
+    }),
   firstName: z
     .string({ message: 'Imię jest wymagane.' })
     .min(2, 'Imię musi mieć co najmniej 2 znaki')
@@ -18,11 +24,6 @@ export const PersonalInfoFormSchema = z.object({
       /^[A-Za-zÀ-ÿąęóćłńśźżĄĘÓĆŁŃŚŹŻ-]+$/,
       'Nazwisko może zawierać tylko litery i myślniki',
     ),
-
-  purpose: z
-    .string()
-    .min(5, 'Cel powinien mieć co najmniej 5 znaków')
-    .max(200, 'Cel jest za długi'),
 });
 
-export type PersonalInfoFormData = z.infer<typeof PersonalInfoFormSchema>;
+export type RegisterTeacherFormData = z.infer<typeof RegisterTeacherFormSchema>;
